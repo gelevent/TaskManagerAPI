@@ -9,7 +9,9 @@ const app = express();
 app.use(cors()); 
 app.use(bodyParser.json()); 
 
-// Port
+const taskRoutes = require('./routes/taskRoutes'); 
+app.use('/api', taskRoutes); 
+
 const PORT = process.env.PORT || 5000; 
 
 app.get('/', (req, res) => {
@@ -21,10 +23,10 @@ app.listen(PORT, () => {
 });
 
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true, // Menggunakan parser URL baru untuk koneksi yang lebih stabil
-    useUnifiedTopology: true, // Mengaktifkan engine koneksi terbaru
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
 }).then(() => {
-    console.log('Connected to MongoDB'); // Log saat koneksi berhasil
+    console.log('Connected to MongoDB'); 
 }).catch((err) => {
-    console.error('Database connection error:', err); // Log jika terjadi kesalahan
+    console.error('Database connection error:', err); 
 });
